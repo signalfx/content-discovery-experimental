@@ -7,17 +7,52 @@
         "creator": null,
         "customProperties": {},
         "description": "",
-        "id": "DkIY0d9AEAA",
+        "id": "DkIWwYTAIAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
-        "name": "Top Consumer Fetch Time p99 (ms)",
+        "name": "Kafka Bytes/sec",
         "options": {
-          "colorBy": "Dimension",
-          "colorScale2": null,
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "bytes in - RED",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": 0
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "bytes out - BLUE",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": 0
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Metric",
+          "defaultPlotType": "ColumnChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
           "legendOptions": {
             "fields": null
           },
-          "maximumPrecision": 4,
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
           "programOptions": {
             "disableSampling": false,
             "maxDelay": null,
@@ -25,24 +60,38 @@
           },
           "publishLabelOptions": [
             {
-              "displayName": "",
+              "displayName": "bytes in/sec",
               "label": "A",
-              "paletteIndex": null,
+              "paletteIndex": 4,
               "plotType": null,
               "valuePrefix": null,
               "valueSuffix": null,
               "valueUnit": null,
               "yAxis": 0
+            },
+            {
+              "displayName": "bytes out/sec",
+              "label": "B",
+              "paletteIndex": 1,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 1
             }
           ],
-          "refreshInterval": null,
-          "secondaryVisualization": "Sparkline",
-          "sortBy": "-value",
-          "type": "List",
-          "unitPrefix": "Metric"
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 7200000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Binary"
         },
         "packageSpecifications": "",
-        "programText": "A = data('gauge.kafka.fetch-consumer.total-time.99th').mean(by=['host']).top(count=5).publish(label='A')",
+        "programText": "A = data('counter.kafka-bytes-in', filter=filter('plugin_instance', 'all')).publish(label='A')\nB = data('counter.kafka-bytes-out', filter=filter('plugin_instance', 'all')).publish(label='B')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -53,10 +102,10 @@
         "creator": null,
         "customProperties": {},
         "description": "",
-        "id": "DkIXbxQAAAA",
+        "id": "DkIYlrRAIAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
-        "name": "Code Cache",
+        "name": "G1 Old Gen",
         "options": {
           "areaChartOptions": {
             "showDataMarkers": false
@@ -106,9 +155,9 @@
           },
           "publishLabelOptions": [
             {
-              "displayName": "init",
+              "displayName": "Init Memory",
               "label": "A",
-              "paletteIndex": null,
+              "paletteIndex": 5,
               "plotType": null,
               "valuePrefix": null,
               "valueSuffix": null,
@@ -117,18 +166,8 @@
             },
             {
               "displayName": "Committed Memory",
-              "label": "B",
-              "paletteIndex": 6,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "Used Memory",
               "label": "C",
-              "paletteIndex": 15,
+              "paletteIndex": 8,
               "plotType": null,
               "valuePrefix": null,
               "valueSuffix": null,
@@ -146,153 +185,8 @@
           "unitPrefix": "Binary"
         },
         "packageSpecifications": "",
-        "programText": "A = data('jmx_memory.init', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-Code Cache')).publish(label='A', enable=False)\nB = data('jmx_memory.committed', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-Code Cache')).publish(label='B')\nC = data('jmx_memory.used', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-Code Cache')).publish(label='C')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "Number of classes loaded in the JVM",
-        "id": "DkIYlTmAIAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Loaded classes",
-        "options": {
-          "colorBy": "Dimension",
-          "colorScale": null,
-          "colorScale2": null,
-          "maximumPrecision": null,
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "gauge.loaded_classes",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "refreshInterval": null,
-          "secondaryVisualization": "None",
-          "showSparkLine": false,
-          "timestampHidden": false,
-          "type": "SingleValue",
-          "unitPrefix": "Binary"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('gauge.loaded_classes').publish(label='A')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIYzvWAEAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "# Partitions",
-        "options": {
-          "colorBy": "Dimension",
-          "colorScale2": null,
-          "legendOptions": {
-            "fields": [
-              {
-                "enabled": false,
-                "property": "AWSUniqueId"
-              },
-              {
-                "enabled": false,
-                "property": "dsname"
-              },
-              {
-                "enabled": true,
-                "property": "host"
-              },
-              {
-                "enabled": false,
-                "property": "hostHasService"
-              },
-              {
-                "enabled": false,
-                "property": "sf_originatingMetric"
-              },
-              {
-                "enabled": true,
-                "property": "sf_metric"
-              },
-              {
-                "enabled": false,
-                "property": "plugin"
-              },
-              {
-                "enabled": true,
-                "property": "plugin_instance"
-              },
-              {
-                "enabled": true,
-                "property": "env"
-              },
-              {
-                "enabled": true,
-                "property": "container_image"
-              },
-              {
-                "enabled": true,
-                "property": "container_name"
-              }
-            ]
-          },
-          "maximumPrecision": null,
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "under replicated partitions",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "partitions",
-              "label": "B",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "refreshInterval": null,
-          "secondaryVisualization": "None",
-          "sortBy": "+sf_metric",
-          "type": "List",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('gauge.kafka-underreplicated-partitions').publish(label='A')\nB = data('gauge.kafka-partition-count', extrapolation='last_value', maxExtrapolations=5).publish(label='B')",
+        "programText": "A = data('jmx_memory.init', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Old Gen')).publish(label='A')\nC = data('jmx_memory.committed', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Old Gen')).publish(label='C')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -417,757 +311,7 @@
         },
         "packageSpecifications": "",
         "programText": "A = data('jmx_memory.committed', filter=filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory-heap') and filter('hostHasService', 'kafka')).publish(label='A', enable=False)\nB = data('jmx_memory.init', filter=filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory-heap') and filter('hostHasService', 'kafka')).publish(label='B', enable=False)\nC = data('jmx_memory.max', filter=filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory-heap') and filter('hostHasService', 'kafka')).publish(label='C')\nD = data('jmx_memory.used', filter=filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory-heap') and filter('hostHasService', 'kafka')).publish(label='D', enable=False)\nF = (D / C * 100).publish(label='F')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIY0OFAIAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Top Messages In/sec",
-        "options": {
-          "colorBy": "Dimension",
-          "colorScale2": null,
-          "legendOptions": {
-            "fields": null
-          },
-          "maximumPrecision": 2,
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "refreshInterval": null,
-          "secondaryVisualization": "None",
-          "sortBy": "-value",
-          "type": "List",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('counter.kafka-messages-in').mean(by=['host']).top(count=5).publish(label='A')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIXcPpAIAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Top Consumer Fetches/sec",
-        "options": {
-          "colorBy": "Dimension",
-          "colorScale2": null,
-          "legendOptions": {
-            "fields": null
-          },
-          "maximumPrecision": 2,
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "refreshInterval": null,
-          "secondaryVisualization": "None",
-          "sortBy": "-value",
-          "type": "List",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('counter.kafka.fetch-consumer.total-time.count').mean(by=['host']).top(count=5).publish(label='A')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "Maximum lag in messages between the follower and leader replicas in milliseconds",
-        "id": "DkIZCZlAIAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Top Brokers with Max Replication Lag",
-        "options": {
-          "colorBy": "Dimension",
-          "colorScale2": null,
-          "legendOptions": {
-            "fields": [
-              {
-                "enabled": false,
-                "property": "AWSUniqueId"
-              },
-              {
-                "enabled": false,
-                "property": "dsname"
-              },
-              {
-                "enabled": true,
-                "property": "host"
-              },
-              {
-                "enabled": false,
-                "property": "hostHasService"
-              },
-              {
-                "enabled": false,
-                "property": "sf_originatingMetric"
-              },
-              {
-                "enabled": false,
-                "property": "sf_metric"
-              },
-              {
-                "enabled": false,
-                "property": "plugin"
-              }
-            ]
-          },
-          "maximumPrecision": null,
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "gauge.kafka-max-lag - Top 5",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "refreshInterval": null,
-          "secondaryVisualization": "None",
-          "sortBy": "",
-          "type": "List",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('gauge.kafka-max-lag').top(count=5).publish(label='A')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "ratio of bytes out : bytes in",
-        "id": "DkIXcHwAEAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Read Amplification",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "ratio",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": 0
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Dimension",
-          "defaultPlotType": "AreaChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": null,
-            "showLegend": false
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "counter.kafka-bytes-in - Sum",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "counter.kafka-bytes-out - Sum",
-              "label": "B",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "bytes_out/bytes_in",
-              "label": "C",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 7200000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('counter.kafka-bytes-in').sum().publish(label='A', enable=False)\nB = data('counter.kafka-bytes-out').sum().publish(label='B', enable=False)\nC = (B / A).publish(label='C')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIYWg1AAAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Messages In/sec 24h Change %",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "change %",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": null
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Dimension",
-          "defaultPlotType": "AreaChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": null,
-            "showLegend": false
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "messages in/sec",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "A - Timeshift 1d",
-              "label": "B",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "24h change %",
-              "label": "C",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 7200000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('counter.kafka-messages-in', extrapolation='last_value', maxExtrapolations=1000).mean(over='1h').publish(label='A', enable=False)\nB = (A).timeshift('1d').publish(label='B', enable=False)\nC = (A/B - 1).scale(100).publish(label='C')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIXb_1AAAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "# Brokers",
-        "options": {
-          "colorBy": "Dimension",
-          "colorScale": null,
-          "colorScale2": null,
-          "maximumPrecision": 3,
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "counter.kafka-bytes-out - Count",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "refreshInterval": null,
-          "secondaryVisualization": "None",
-          "showSparkLine": false,
-          "timestampHidden": false,
-          "type": "SingleValue",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('counter.kafka-bytes-out', extrapolation='last_value', maxExtrapolations=5).count().publish(label='A')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIY0GXAAAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Avg Bytes/Message",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "bytes",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": 0
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Dimension",
-          "defaultPlotType": "AreaChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": null,
-            "showLegend": false
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "counter.kafka-bytes-in - Sum",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "counter.kafka-messages-in - Sum",
-              "label": "B",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "bytes/message",
-              "label": "C",
-              "paletteIndex": 5,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 7200000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('counter.kafka-bytes-in').sum().publish(label='A', enable=False)\nB = data('counter.kafka-messages-in').sum().publish(label='B', enable=False)\nC = (A / B).publish(label='C')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIW-gjAIAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Replication Lag",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": null
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Dimension",
-          "defaultPlotType": "LineChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": null,
-            "showLegend": false
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "gauge.kafka-max-lag",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 900000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('gauge.kafka-max-lag').publish(label='A')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIWwYTAIAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Kafka Bytes/sec",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "bytes in - RED",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": 0
-            },
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "bytes out - BLUE",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": 0
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Metric",
-          "defaultPlotType": "ColumnChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": null,
-            "showLegend": false
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "bytes in/sec",
-              "label": "A",
-              "paletteIndex": 4,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "bytes out/sec",
-              "label": "B",
-              "paletteIndex": 1,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 1
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 7200000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Binary"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('counter.kafka-bytes-in', filter=filter('plugin_instance', 'all')).publish(label='A')\nB = data('counter.kafka-bytes-out', filter=filter('plugin_instance', 'all')).publish(label='B')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "Request Latency Percentile Distribution (Available from 1.x.x)",
-        "id": "DkIZCeKAAAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Zookeper Request Latency (ms)",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "milli seconds",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": 0
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Dimension",
-          "defaultPlotType": "LineChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": "sf_metric",
-            "showLegend": true
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "Median",
-              "label": "A",
-              "paletteIndex": 8,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "99th Percentile",
-              "label": "B",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 900000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('gauge.kafka.zk.request-latency.median').mean().publish(label='A')\nB = data('gauge.kafka.zk.request-latency.99th').mean().publish(label='B')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -1252,6 +396,451 @@
         },
         "packageSpecifications": "",
         "programText": "A = data('total_time_in_ms.collection_time', filter=filter('plugin_instance', 'gc-G1 Young Generation') and filter('hostHasService', 'kafka')).publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Number of Topics in Kafka cluster (Available from 1.x.x)",
+        "id": "DkIY0GPAIAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "# Topics",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": null,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "gauge.kafka-topic-count",
+              "label": "A",
+              "paletteIndex": 7,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('gauge.kafka-topic-count').publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIYIGPAIAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "# Partitions",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": null,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "gauge.kafka-partition-count",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('gauge.kafka-partition-count').publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIYIOEAAAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Queue Size",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "requests",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": 0
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "response",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "gauge.kafka-request-queue",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "gauge.kafka-response-queue",
+              "label": "B",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 1
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 7200000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Binary"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('gauge.kafka-request-queue').publish(label='A')\nB = data('gauge.kafka-response-queue').publish(label='B')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIXb1hAEAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Total Producer Requests/sec",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "requests",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": 0
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "requests/sec",
+              "label": "A",
+              "paletteIndex": 11,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 7200000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('counter.kafka.produce.total-time.count').sum().publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIWwIfAAAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Consumer Fetches/sec",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "fetches",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": 0
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "fetches/sec",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 7200000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('counter.kafka.fetch-consumer.total-time.count', filter=filter('host', 'integration-test-kafka-0.8.2.1-2')).publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIXbxQAAAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Code Cache",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Metric",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "sf_metric",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "init",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Committed Memory",
+              "label": "B",
+              "paletteIndex": 6,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Used Memory",
+              "label": "C",
+              "paletteIndex": 15,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 900000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Binary"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('jmx_memory.init', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-Code Cache')).publish(label='A', enable=False)\nB = data('jmx_memory.committed', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-Code Cache')).publish(label='B')\nC = data('jmx_memory.used', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-Code Cache')).publish(label='C')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -1327,6 +916,7 @@
         },
         "packageSpecifications": "",
         "programText": "A = data('counter.kafka.fetch-consumer.total-time.count').sum().publish(label='A')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -1336,56 +926,11 @@
         "created": 0,
         "creator": null,
         "customProperties": {},
-        "description": "Number of Topics in Kafka cluster (Available from 1.x.x)",
-        "id": "DkIY0GPAIAA",
+        "description": "percentile distribution",
+        "id": "DkIYWbLAIAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
-        "name": "# Topics",
-        "options": {
-          "colorBy": "Dimension",
-          "colorScale": null,
-          "colorScale2": null,
-          "maximumPrecision": null,
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "gauge.kafka-topic-count",
-              "label": "A",
-              "paletteIndex": 7,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "refreshInterval": null,
-          "secondaryVisualization": "None",
-          "showSparkLine": false,
-          "timestampHidden": false,
-          "type": "SingleValue",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('gauge.kafka-topic-count').publish(label='A')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIYljWAEAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "G1 Survivor Space",
+        "name": "Consumer Fetch Time (ms)",
         "options": {
           "areaChartOptions": {
             "showDataMarkers": false
@@ -1394,102 +939,7 @@
             {
               "highWatermark": null,
               "highWatermarkLabel": null,
-              "label": "",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": null
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Metric",
-          "defaultPlotType": "ColumnChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": "sf_metric",
-            "showLegend": true
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "Committed Memory",
-              "label": "A",
-              "paletteIndex": 14,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "Used Memory",
-              "label": "B",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "Init Memory",
-              "label": "C",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 900000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Binary"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('jmx_memory.committed', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Survivor Space')).publish(label='A')\nB = data('jmx_memory.used', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Survivor Space')).publish(label='B')\nC = data('jmx_memory.init', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Survivor Space')).publish(label='C')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIXb3-AIAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Total Messages In/sec",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "messages",
+              "label": "ms",
               "lowWatermark": null,
               "lowWatermarkLabel": null,
               "max": null,
@@ -1497,7 +947,7 @@
             }
           ],
           "axisPrecision": null,
-          "colorBy": "Dimension",
+          "colorBy": "Metric",
           "defaultPlotType": "AreaChart",
           "eventPublishLabelOptions": [],
           "histogramChartOptions": {
@@ -1521,9 +971,19 @@
           },
           "publishLabelOptions": [
             {
-              "displayName": "message in/sec",
+              "displayName": "median",
               "label": "A",
-              "paletteIndex": 15,
+              "paletteIndex": 2,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "p99",
+              "label": "B",
+              "paletteIndex": 5,
               "plotType": null,
               "valuePrefix": null,
               "valueSuffix": null,
@@ -1541,7 +1001,8 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('counter.kafka-messages-in').sum().publish(label='A')",
+        "programText": "A = data('gauge.kafka.fetch-consumer.total-time.median').publish(label='A')\nB = data('gauge.kafka.fetch-consumer.total-time.99th').publish(label='B')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -1637,137 +1098,7 @@
         },
         "packageSpecifications": "",
         "programText": "A = data('counter.kafka-messages-in').publish(label='A', enable=False)\nB = data('counter.kafka-bytes-in').publish(label='B', enable=False)\nC = (B / A).publish(label='C')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "percentile distribution",
-        "id": "DkIYWbLAIAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Consumer Fetch Time (ms)",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "ms",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": 0
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Metric",
-          "defaultPlotType": "AreaChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": null,
-            "showLegend": false
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "median",
-              "label": "A",
-              "paletteIndex": 2,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "p99",
-              "label": "B",
-              "paletteIndex": 5,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 7200000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('gauge.kafka.fetch-consumer.total-time.median').publish(label='A')\nB = data('gauge.kafka.fetch-consumer.total-time.99th').publish(label='B')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIXqbfAEAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Top Request Queue Size",
-        "options": {
-          "colorBy": "Dimension",
-          "colorScale2": null,
-          "legendOptions": {
-            "fields": null
-          },
-          "maximumPrecision": 4,
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "refreshInterval": null,
-          "secondaryVisualization": "Sparkline",
-          "sortBy": "-value",
-          "type": "List",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('gauge.kafka-request-queue').max(by=['host']).top(count=5).publish(label='A')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -1814,6 +1145,7 @@
         },
         "packageSpecifications": "",
         "programText": "A = data('gauge.kafka.produce.total-time.99th').mean(by=['host']).top(count=5).publish(label='A')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -1824,10 +1156,10 @@
         "creator": null,
         "customProperties": {},
         "description": "",
-        "id": "DkIYH-QAEAA",
+        "id": "DkIYljWAEAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
-        "name": "Producer Requests/sec",
+        "name": "G1 Survivor Space",
         "options": {
           "areaChartOptions": {
             "showDataMarkers": false
@@ -1836,16 +1168,16 @@
             {
               "highWatermark": null,
               "highWatermarkLabel": null,
-              "label": "requests",
+              "label": "",
               "lowWatermark": null,
               "lowWatermarkLabel": null,
               "max": null,
-              "min": 0
+              "min": null
             }
           ],
           "axisPrecision": null,
-          "colorBy": "Dimension",
-          "defaultPlotType": "AreaChart",
+          "colorBy": "Metric",
+          "defaultPlotType": "ColumnChart",
           "eventPublishLabelOptions": [],
           "histogramChartOptions": {
             "colorThemeIndex": 16
@@ -1858,8 +1190,8 @@
             "showDataMarkers": false
           },
           "onChartLegendOptions": {
-            "dimensionInLegend": null,
-            "showLegend": false
+            "dimensionInLegend": "sf_metric",
+            "showLegend": true
           },
           "programOptions": {
             "disableSampling": false,
@@ -1868,9 +1200,29 @@
           },
           "publishLabelOptions": [
             {
-              "displayName": "requests/sec",
+              "displayName": "Committed Memory",
               "label": "A",
               "paletteIndex": 14,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Used Memory",
+              "label": "B",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Init Memory",
+              "label": "C",
+              "paletteIndex": null,
               "plotType": null,
               "valuePrefix": null,
               "valueSuffix": null,
@@ -1881,14 +1233,62 @@
           "showEventLines": false,
           "stacked": false,
           "time": {
-            "range": 7200000,
+            "range": 900000,
             "type": "relative"
           },
           "type": "TimeSeriesChart",
+          "unitPrefix": "Binary"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('jmx_memory.committed', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Survivor Space')).publish(label='A')\nB = data('jmx_memory.used', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Survivor Space')).publish(label='B')\nC = data('jmx_memory.init', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Survivor Space')).publish(label='C')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIY0WBAAAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Top Producer Requests/sec",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale2": null,
+          "legendOptions": {
+            "fields": null
+          },
+          "maximumPrecision": 2,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "sortBy": "-value",
+          "type": "List",
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('counter.kafka.produce.total-time.count').publish(label='A')",
+        "programText": "A = data('counter.kafka.produce.total-time.count').mean(by=['host']).top(count=5).publish(label='A')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -1973,6 +1373,692 @@
         },
         "packageSpecifications": "",
         "programText": "A = data('invocations', filter=filter('plugin_instance', 'gc-G1 Young Generation') and filter('hostHasService', 'kafka')).publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "percentile distribution",
+        "id": "DkIWwgMAAAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Producer Request Time (ms)",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "ms",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": 0
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Metric",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "median",
+              "label": "A",
+              "paletteIndex": 2,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "p99",
+              "label": "B",
+              "paletteIndex": 5,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 7200000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('gauge.kafka.produce.total-time.median').publish(label='A')\nB = data('gauge.kafka.produce.total-time.99th').publish(label='B')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Request Latency Percentile Distribution (Available from 1.x.x)",
+        "id": "DkIZCeKAAAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Zookeper Request Latency (ms)",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "milli seconds",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": 0
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "LineChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "sf_metric",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Median",
+              "label": "A",
+              "paletteIndex": 8,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "99th Percentile",
+              "label": "B",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 900000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('gauge.kafka.zk.request-latency.median').mean().publish(label='A')\nB = data('gauge.kafka.zk.request-latency.99th').mean().publish(label='B')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIY0GXAAAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Avg Bytes/Message",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "bytes",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": 0
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "counter.kafka-bytes-in - Sum",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "counter.kafka-messages-in - Sum",
+              "label": "B",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "bytes/message",
+              "label": "C",
+              "paletteIndex": 5,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 7200000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('counter.kafka-bytes-in').sum().publish(label='A', enable=False)\nB = data('counter.kafka-messages-in').sum().publish(label='B', enable=False)\nC = (A / B).publish(label='C')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIY0OFAIAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Top Messages In/sec",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale2": null,
+          "legendOptions": {
+            "fields": null
+          },
+          "maximumPrecision": 2,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "sortBy": "-value",
+          "type": "List",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('counter.kafka-messages-in').mean(by=['host']).top(count=5).publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIYWg1AAAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Messages In/sec 24h Change %",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "change %",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "messages in/sec",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "A - Timeshift 1d",
+              "label": "B",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "24h change %",
+              "label": "C",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 7200000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('counter.kafka-messages-in', extrapolation='last_value', maxExtrapolations=1000).mean(over='1h').publish(label='A', enable=False)\nB = (A).timeshift('1d').publish(label='B', enable=False)\nC = (A/B - 1).scale(100).publish(label='C')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIXb_1AAAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "# Brokers",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": 3,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "counter.kafka-bytes-out - Count",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('counter.kafka-bytes-out', extrapolation='last_value', maxExtrapolations=5).count().publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Maximum lag in messages between the follower and leader replicas in milliseconds",
+        "id": "DkIZCZlAIAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Top Brokers with Max Replication Lag",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale2": null,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": false,
+                "property": "AWSUniqueId"
+              },
+              {
+                "enabled": false,
+                "property": "dsname"
+              },
+              {
+                "enabled": true,
+                "property": "host"
+              },
+              {
+                "enabled": false,
+                "property": "hostHasService"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "plugin"
+              }
+            ]
+          },
+          "maximumPrecision": null,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "gauge.kafka-max-lag - Top 5",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "sortBy": "",
+          "type": "List",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('gauge.kafka-max-lag').top(count=5).publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIWwQdAEAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Messages In/sec",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "# messages",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": 0
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "messages in/sec",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 7200000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('counter.kafka-messages-in', extrapolation='last_value', maxExtrapolations=1000).publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIW-gjAIAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Replication Lag",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "LineChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "gauge.kafka-max-lag",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 900000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('gauge.kafka-max-lag').publish(label='A')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -2068,6 +2154,7 @@
         },
         "packageSpecifications": "",
         "programText": "A = data('counter.kafka.fetch-consumer.total-time.count').mean(over='1h').publish(label='A', enable=False)\nB = (A).timeshift('1d').publish(label='B', enable=False)\nC = (A/B - 1).scale(100).publish(label='C')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -2078,112 +2165,17 @@
         "creator": null,
         "customProperties": {},
         "description": "",
-        "id": "DkIXNtIAIAA",
+        "id": "DkIXqbfAEAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
-        "name": "G1 Eden Space",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": null
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Metric",
-          "defaultPlotType": "AreaChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": "sf_metric",
-            "showLegend": true
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "Init Memory",
-              "label": "A",
-              "paletteIndex": 9,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "Committed Memory",
-              "label": "B",
-              "paletteIndex": 10,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "Used Memory",
-              "label": "C",
-              "paletteIndex": 14,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 900000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Binary"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('jmx_memory.init', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Eden Space')).publish(label='A')\nB = data('jmx_memory.committed', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Eden Space')).publish(label='B')\nC = data('jmx_memory.used', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Eden Space')).publish(label='C')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIY0WBAAAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Top Producer Requests/sec",
+        "name": "Top Request Queue Size",
         "options": {
           "colorBy": "Dimension",
           "colorScale2": null,
           "legendOptions": {
             "fields": null
           },
-          "maximumPrecision": 2,
+          "maximumPrecision": 4,
           "programOptions": {
             "disableSampling": false,
             "maxDelay": null,
@@ -2202,13 +2194,14 @@
             }
           ],
           "refreshInterval": null,
-          "secondaryVisualization": "None",
+          "secondaryVisualization": "Sparkline",
           "sortBy": "-value",
           "type": "List",
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('counter.kafka.produce.total-time.count').mean(by=['host']).top(count=5).publish(label='A')",
+        "programText": "A = data('gauge.kafka-request-queue').max(by=['host']).top(count=5).publish(label='A')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -2219,10 +2212,10 @@
         "creator": null,
         "customProperties": {},
         "description": "",
-        "id": "DkIXb1hAEAA",
+        "id": "DkIYzvWAEAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
-        "name": "Total Producer Requests/sec",
+        "name": "# Partitions",
         "options": {
           "areaChartOptions": {
             "showDataMarkers": false
@@ -2231,23 +2224,83 @@
             {
               "highWatermark": null,
               "highWatermarkLabel": null,
-              "label": "requests",
+              "label": "",
               "lowWatermark": null,
               "lowWatermarkLabel": null,
               "max": null,
-              "min": 0
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
             }
           ],
           "axisPrecision": null,
           "colorBy": "Dimension",
-          "defaultPlotType": "AreaChart",
-          "eventPublishLabelOptions": [],
+          "defaultPlotType": "LineChart",
+          "eventPublishLabelOptions": [
+            {
+              "displayName": "Kafka Partitions Underreplicated",
+              "label": "C",
+              "paletteIndex": null
+            }
+          ],
           "histogramChartOptions": {
             "colorThemeIndex": 16
           },
           "includeZero": false,
           "legendOptions": {
-            "fields": null
+            "fields": [
+              {
+                "enabled": false,
+                "property": "AWSUniqueId"
+              },
+              {
+                "enabled": false,
+                "property": "dsname"
+              },
+              {
+                "enabled": true,
+                "property": "host"
+              },
+              {
+                "enabled": false,
+                "property": "hostHasService"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": true,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "plugin"
+              },
+              {
+                "enabled": true,
+                "property": "plugin_instance"
+              },
+              {
+                "enabled": true,
+                "property": "env"
+              },
+              {
+                "enabled": true,
+                "property": "container_image"
+              },
+              {
+                "enabled": true,
+                "property": "container_name"
+              }
+            ]
           },
           "lineChartOptions": {
             "showDataMarkers": false
@@ -2263,83 +2316,18 @@
           },
           "publishLabelOptions": [
             {
-              "displayName": "requests/sec",
+              "displayName": "under replicated partitions",
               "label": "A",
-              "paletteIndex": 11,
+              "paletteIndex": null,
               "plotType": null,
               "valuePrefix": null,
               "valueSuffix": null,
               "valueUnit": null,
               "yAxis": 0
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 7200000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('counter.kafka.produce.total-time.count').sum().publish(label='A')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIWwQdAEAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Messages In/sec",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
+            },
             {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "# messages",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": 0
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Dimension",
-          "defaultPlotType": "AreaChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": null,
-            "showLegend": false
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "messages in/sec",
-              "label": "A",
+              "displayName": "partitions",
+              "label": "B",
               "paletteIndex": null,
               "plotType": null,
               "valuePrefix": null,
@@ -2351,14 +2339,17 @@
           "showEventLines": false,
           "stacked": false,
           "time": {
-            "range": 7200000,
+            "range": 900000,
             "type": "relative"
           },
           "type": "TimeSeriesChart",
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('counter.kafka-messages-in', extrapolation='last_value', maxExtrapolations=1000).publish(label='A')",
+        "programText": "A = data('gauge.kafka-underreplicated-partitions').publish(label='A')\nB = data('gauge.kafka-partition-count', extrapolation='last_value', maxExtrapolations=5).publish(label='B')\nC = alerts(detector_name='Kafka Partitions Underreplicated').publish(label='C')",
+        "relatedDetectorIds": [
+          "DkJIXmOAEDI"
+        ],
         "tags": null
       }
     },
@@ -2483,6 +2474,7 @@
         },
         "packageSpecifications": "",
         "programText": "A = data('jmx_memory.init', filter=filter('hostHasService', 'kafka') and filter('plugin_instance', 'memory-nonheap')).publish(label='A', enable=False)\nB = data('jmx_memory.committed', filter=filter('hostHasService', 'kafka') and filter('plugin_instance', 'memory-nonheap')).publish(label='B', enable=False)\nC = data('jmx_memory.used', filter=filter('hostHasService', 'kafka') and filter('plugin_instance', 'memory-nonheap')).publish(label='C', enable=False)\nD = (100*C/B).publish(label='D')\nE = (100*A/B).publish(label='E')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -2493,238 +2485,15 @@
         "creator": null,
         "customProperties": {},
         "description": "",
-        "id": "DkIYIGPAIAA",
+        "id": "DkIXNtIAIAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
-        "name": "# Partitions",
-        "options": {
-          "colorBy": "Dimension",
-          "colorScale": null,
-          "colorScale2": null,
-          "maximumPrecision": null,
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "gauge.kafka-partition-count",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "refreshInterval": null,
-          "secondaryVisualization": "None",
-          "showSparkLine": false,
-          "timestampHidden": false,
-          "type": "SingleValue",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('gauge.kafka-partition-count').publish(label='A')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIWwIfAAAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Consumer Fetches/sec",
+        "name": "G1 Eden Space",
         "options": {
           "areaChartOptions": {
             "showDataMarkers": false
           },
           "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "fetches",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": 0
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Dimension",
-          "defaultPlotType": "AreaChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": null,
-            "showLegend": false
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "fetches/sec",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 7200000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Metric"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('counter.kafka.fetch-consumer.total-time.count', filter=filter('host', 'integration-test-kafka-0.8.2.1-2')).publish(label='A')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIYIOEAAAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "Queue Size",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "requests",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": 0
-            },
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "response",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": null
-            }
-          ],
-          "axisPrecision": null,
-          "colorBy": "Dimension",
-          "defaultPlotType": "AreaChart",
-          "eventPublishLabelOptions": [],
-          "histogramChartOptions": {
-            "colorThemeIndex": 16
-          },
-          "includeZero": false,
-          "legendOptions": {
-            "fields": null
-          },
-          "lineChartOptions": {
-            "showDataMarkers": false
-          },
-          "onChartLegendOptions": {
-            "dimensionInLegend": null,
-            "showLegend": false
-          },
-          "programOptions": {
-            "disableSampling": false,
-            "maxDelay": null,
-            "minimumResolution": 0
-          },
-          "publishLabelOptions": [
-            {
-              "displayName": "gauge.kafka-request-queue",
-              "label": "A",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "gauge.kafka-response-queue",
-              "label": "B",
-              "paletteIndex": null,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 1
-            }
-          ],
-          "showEventLines": false,
-          "stacked": false,
-          "time": {
-            "range": 7200000,
-            "type": "relative"
-          },
-          "type": "TimeSeriesChart",
-          "unitPrefix": "Binary"
-        },
-        "packageSpecifications": "",
-        "programText": "A = data('gauge.kafka-request-queue').publish(label='A')\nB = data('gauge.kafka-response-queue').publish(label='B')",
-        "tags": null
-      }
-    },
-    {
-      "chart": {
-        "authorizedWriters": null,
-        "created": 0,
-        "creator": null,
-        "customProperties": {},
-        "description": "",
-        "id": "DkIYlrRAIAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "name": "G1 Old Gen",
-        "options": {
-          "areaChartOptions": {
-            "showDataMarkers": false
-          },
-          "axes": [
-            {
-              "highWatermark": null,
-              "highWatermarkLabel": null,
-              "label": "",
-              "lowWatermark": null,
-              "lowWatermarkLabel": null,
-              "max": null,
-              "min": null
-            },
             {
               "highWatermark": null,
               "highWatermarkLabel": null,
@@ -2762,7 +2531,7 @@
             {
               "displayName": "Init Memory",
               "label": "A",
-              "paletteIndex": 5,
+              "paletteIndex": 9,
               "plotType": null,
               "valuePrefix": null,
               "valueSuffix": null,
@@ -2771,8 +2540,18 @@
             },
             {
               "displayName": "Committed Memory",
+              "label": "B",
+              "paletteIndex": 10,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Used Memory",
               "label": "C",
-              "paletteIndex": 8,
+              "paletteIndex": 14,
               "plotType": null,
               "valuePrefix": null,
               "valueSuffix": null,
@@ -2790,7 +2569,102 @@
           "unitPrefix": "Binary"
         },
         "packageSpecifications": "",
-        "programText": "A = data('jmx_memory.init', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Old Gen')).publish(label='A')\nC = data('jmx_memory.committed', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Old Gen')).publish(label='C')",
+        "programText": "A = data('jmx_memory.init', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Eden Space')).publish(label='A')\nB = data('jmx_memory.committed', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Eden Space')).publish(label='B')\nC = data('jmx_memory.used', filter=filter('hostHasService', 'kafka') and filter('plugin', 'GenericJMX') and filter('plugin_instance', 'memory_pool-G1 Eden Space')).publish(label='C')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIXcPpAIAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Top Consumer Fetches/sec",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale2": null,
+          "legendOptions": {
+            "fields": null
+          },
+          "maximumPrecision": 2,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "sortBy": "-value",
+          "type": "List",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('counter.kafka.fetch-consumer.total-time.count').mean(by=['host']).top(count=5).publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIY0d9AEAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Top Consumer Fetch Time p99 (ms)",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale2": null,
+          "legendOptions": {
+            "fields": null
+          },
+          "maximumPrecision": 4,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "Sparkline",
+          "sortBy": "-value",
+          "type": "List",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('gauge.kafka.fetch-consumer.total-time.99th').mean(by=['host']).top(count=5).publish(label='A')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -2866,6 +2740,7 @@
         },
         "packageSpecifications": "",
         "programText": "A = data('counter.kafka.zk.request-latency.count').mean().publish(label='A')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     },
@@ -2875,11 +2750,11 @@
         "created": 0,
         "creator": null,
         "customProperties": {},
-        "description": "percentile distribution",
-        "id": "DkIWwgMAAAA",
+        "description": "",
+        "id": "DkIXb3-AIAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
-        "name": "Producer Request Time (ms)",
+        "name": "Total Messages In/sec",
         "options": {
           "areaChartOptions": {
             "showDataMarkers": false
@@ -2888,7 +2763,7 @@
             {
               "highWatermark": null,
               "highWatermarkLabel": null,
-              "label": "ms",
+              "label": "messages",
               "lowWatermark": null,
               "lowWatermarkLabel": null,
               "max": null,
@@ -2896,7 +2771,7 @@
             }
           ],
           "axisPrecision": null,
-          "colorBy": "Metric",
+          "colorBy": "Dimension",
           "defaultPlotType": "AreaChart",
           "eventPublishLabelOptions": [],
           "histogramChartOptions": {
@@ -2920,19 +2795,9 @@
           },
           "publishLabelOptions": [
             {
-              "displayName": "median",
+              "displayName": "message in/sec",
               "label": "A",
-              "paletteIndex": 2,
-              "plotType": null,
-              "valuePrefix": null,
-              "valueSuffix": null,
-              "valueUnit": null,
-              "yAxis": 0
-            },
-            {
-              "displayName": "p99",
-              "label": "B",
-              "paletteIndex": 5,
+              "paletteIndex": 15,
               "plotType": null,
               "valuePrefix": null,
               "valueSuffix": null,
@@ -2950,115 +2815,231 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('gauge.kafka.produce.total-time.median').publish(label='A')\nB = data('gauge.kafka.produce.total-time.99th').publish(label='B')",
+        "programText": "A = data('counter.kafka-messages-in').sum().publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkIYH-QAEAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Producer Requests/sec",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "requests",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": 0
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "requests/sec",
+              "label": "A",
+              "paletteIndex": 14,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 7200000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('counter.kafka.produce.total-time.count').publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Number of classes loaded in the JVM",
+        "id": "DkIYlTmAIAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Loaded classes",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": null,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "gauge.loaded_classes",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Binary"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('gauge.loaded_classes').publish(label='A')",
+        "relatedDetectorIds": null,
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "ratio of bytes out : bytes in",
+        "id": "DkIXcHwAEAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Read Amplification",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "ratio",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": 0
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "counter.kafka-bytes-in - Sum",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "counter.kafka-bytes-out - Sum",
+              "label": "B",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "bytes_out/bytes_in",
+              "label": "C",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 7200000,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('counter.kafka-bytes-in').sum().publish(label='A', enable=False)\nB = data('counter.kafka-bytes-out').sum().publish(label='B', enable=False)\nC = (B / A).publish(label='C')",
+        "relatedDetectorIds": null,
         "tags": null
       }
     }
   ],
   "dashboardExports": [
-    {
-      "dashboard": {
-        "authorizedWriters": null,
-        "chartDensity": "DEFAULT",
-        "charts": [
-          {
-            "chartId": "DkIXNlJAEAA",
-            "column": 0,
-            "height": 1,
-            "row": 0,
-            "width": 4
-          },
-          {
-            "chartId": "DkIYlTmAIAA",
-            "column": 4,
-            "height": 1,
-            "row": 0,
-            "width": 4
-          },
-          {
-            "chartId": "DkIXNdPAAAA",
-            "column": 8,
-            "height": 1,
-            "row": 0,
-            "width": 4
-          },
-          {
-            "chartId": "DkIYljWAEAA",
-            "column": 8,
-            "height": 1,
-            "row": 1,
-            "width": 4
-          },
-          {
-            "chartId": "DkIXNVTAIAA",
-            "column": 0,
-            "height": 1,
-            "row": 1,
-            "width": 4
-          },
-          {
-            "chartId": "DkIYlbdAAAA",
-            "column": 4,
-            "height": 1,
-            "row": 1,
-            "width": 4
-          },
-          {
-            "chartId": "DkIXNtIAIAA",
-            "column": 8,
-            "height": 1,
-            "row": 2,
-            "width": 4
-          },
-          {
-            "chartId": "DkIYlrRAIAA",
-            "column": 0,
-            "height": 1,
-            "row": 2,
-            "width": 4
-          },
-          {
-            "chartId": "DkIXbxQAAAA",
-            "column": 4,
-            "height": 1,
-            "row": 2,
-            "width": 4
-          }
-        ],
-        "created": 0,
-        "creator": null,
-        "customProperties": null,
-        "description": "JVM Performance monitoring",
-        "discoveryOptions": null,
-        "eventOverlays": null,
-        "filters": {
-          "sources": null,
-          "time": null,
-          "variables": [
-            {
-              "alias": "Host",
-              "applyIfExists": false,
-              "description": "",
-              "preferredSuggestions": [],
-              "property": "host",
-              "replaceOnly": false,
-              "required": true,
-              "restricted": false,
-              "value": ""
-            }
-          ]
-        },
-        "groupId": "DkIWhMrAAAA",
-        "id": "DkIYlzLAAAA",
-        "lastUpdated": 0,
-        "lastUpdatedBy": null,
-        "locked": false,
-        "maxDelayOverride": null,
-        "name": "JVM",
-        "selectedEventOverlays": [],
-        "tags": null
-      }
-    },
     {
       "dashboard": {
         "authorizedWriters": null,
@@ -3332,6 +3313,149 @@
         "selectedEventOverlays": [],
         "tags": null
       }
+    },
+    {
+      "dashboard": {
+        "authorizedWriters": null,
+        "chartDensity": "DEFAULT",
+        "charts": [
+          {
+            "chartId": "DkIXNlJAEAA",
+            "column": 0,
+            "height": 1,
+            "row": 0,
+            "width": 4
+          },
+          {
+            "chartId": "DkIYlTmAIAA",
+            "column": 4,
+            "height": 1,
+            "row": 0,
+            "width": 4
+          },
+          {
+            "chartId": "DkIXNdPAAAA",
+            "column": 8,
+            "height": 1,
+            "row": 0,
+            "width": 4
+          },
+          {
+            "chartId": "DkIYljWAEAA",
+            "column": 8,
+            "height": 1,
+            "row": 1,
+            "width": 4
+          },
+          {
+            "chartId": "DkIXNVTAIAA",
+            "column": 0,
+            "height": 1,
+            "row": 1,
+            "width": 4
+          },
+          {
+            "chartId": "DkIYlbdAAAA",
+            "column": 4,
+            "height": 1,
+            "row": 1,
+            "width": 4
+          },
+          {
+            "chartId": "DkIXNtIAIAA",
+            "column": 8,
+            "height": 1,
+            "row": 2,
+            "width": 4
+          },
+          {
+            "chartId": "DkIYlrRAIAA",
+            "column": 0,
+            "height": 1,
+            "row": 2,
+            "width": 4
+          },
+          {
+            "chartId": "DkIXbxQAAAA",
+            "column": 4,
+            "height": 1,
+            "row": 2,
+            "width": 4
+          }
+        ],
+        "created": 0,
+        "creator": null,
+        "customProperties": null,
+        "description": "JVM Performance monitoring",
+        "discoveryOptions": null,
+        "eventOverlays": null,
+        "filters": {
+          "sources": null,
+          "time": null,
+          "variables": [
+            {
+              "alias": "Host",
+              "applyIfExists": false,
+              "description": "",
+              "preferredSuggestions": [],
+              "property": "host",
+              "replaceOnly": false,
+              "required": true,
+              "restricted": false,
+              "value": ""
+            }
+          ]
+        },
+        "groupId": "DkIWhMrAAAA",
+        "id": "DkIYlzLAAAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "locked": false,
+        "maxDelayOverride": null,
+        "name": "JVM",
+        "selectedEventOverlays": [],
+        "tags": null
+      }
+    }
+  ],
+  "detectorExports": [
+    {
+      "detector": {
+        "authorizedWriters": null,
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "DkJIXmOAEDI",
+        "importOf": null,
+        "labelResolutions": {
+          "partitions": 10000
+        },
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "locked": false,
+        "maxDelay": 0,
+        "name": "Kafka Partitions Underreplicated",
+        "overMTSLimit": false,
+        "packageSpecifications": "",
+        "programText": "A = data('gauge.kafka-underreplicated-partitions')\ndetect(A>0).publish('partitions');",
+        "rules": [
+          {
+            "description": "",
+            "detectLabel": "partitions",
+            "disabled": false,
+            "notifications": null,
+            "parameterizedBody": null,
+            "parameterizedSubject": null,
+            "runbookUrl": null,
+            "severity": "Critical",
+            "tip": null
+          }
+        ],
+        "tags": [],
+        "teams": null,
+        "visualizationOptions": null
+      }
     }
   ],
   "groupExport": {
@@ -3367,7 +3491,7 @@
       "teams": null
     }
   },
-  "hashCode": 586369870,
+  "hashCode": -1529080314,
   "id": "DkIWhMrAAAA",
   "modelVersion": 1,
   "packageType": "GROUP"
